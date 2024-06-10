@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.sughelp.pdf.generator</groupId>
+	<artifactId>sughelp-pdf-generator</artifactId>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
+
+	<name>sughelp-pdf-generator</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java-version>1.8</java-version>
+		<pdfbox.version>2.0.19</pdfbox.version>
+		<jackson.version>2.7.5</jackson.version>
+		<slf4j.version>1.7.6</slf4j.version>
+		<logback.version>1.0.9</logback.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>${pdfbox.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<source>${java-version}</source>
+						<target>${java-version}</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+
+		<extensions>
+			<!-- Maven Wagon for AWS S3, used to publish artifacts to an S3 bucket -->
+			<extension>
+				<groupId>com.gkatzioura.maven.cloud</groupId>
+				<artifactId>s3-storage-wagon</artifactId>
+				<version>1.0</version>
+			</extension>
+		</extensions>
+	</build>
+
+	<!-- sughelp maven repository where the jar will be placed -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>sughelp-maven-repo</id>
+			<url>s3://sughelp-maven-repo/snapshot</url>
+		</snapshotRepository>
+		<repository>
+			<id>sughelp-maven-repo</id>
+			<url>s3://sughelp-maven-repo/release</url>
+		</repository>
+	</distributionManagement>
+</project>
