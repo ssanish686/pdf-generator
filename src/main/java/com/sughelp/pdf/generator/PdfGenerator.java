@@ -41,7 +41,7 @@ public class PdfGenerator implements AutoCloseable {
 
 	private static final Logger logger = LoggerFactory.getLogger(PdfGenerator.class);
 
-	private PDDocument pdfDoc;
+	private final PDDocument pdfDoc;
 	private PDPage page;
 	private PDPageContentStream contentStream;
 
@@ -53,9 +53,8 @@ public class PdfGenerator implements AutoCloseable {
 	/**
 	 *
 	 */
-	private PDDocument createDocument() {
+	public PdfGenerator() {
 		pdfDoc = new PDDocument();
-		return pdfDoc;
 	}
 
 	/**
@@ -70,10 +69,10 @@ public class PdfGenerator implements AutoCloseable {
 	 * @throws PdfTemplateException
 	 *             if the input template is not set with proper value
 	 */
-	public void createPdf(String template, String file) throws IOException, PdfTemplateException {
+	public void createPdfFile(String template, String file) throws IOException, PdfTemplateException {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			createPdf(mapper.readValue(template, Template.class), file);
+			createPdfFile(mapper.readValue(template, Template.class), file);
 		} catch (JsonParseException | JsonMappingException e) {
 			throw new PdfTemplateException(PdfErrorDescription.INVALID_TEMPLATE.getErrorDescription(), e);
 		}
@@ -112,27 +111,8 @@ public class PdfGenerator implements AutoCloseable {
 	 * @throws PdfTemplateException
 	 *             if the input template is not set with proper value
 	 */
-	public void createPdf(Template template, String file) throws IOException, PdfTemplateException {
-		createDocument();
-		setPdfInformation(getFileName(file));
-		logger.info("Document created");
-		createNewPage();
-		pageTopMargin = template.getTopMargin();
-		pageBottomMargin = template.getBottomMargin();
-		logger.debug("Input template top margin = {} and bottom margin = {}", pageTopMargin, pageBottomMargin);
-		for (int i = 0; i < template.getTables().size(); i++) {
-			Table table = template.getTables().get(i);
-			// condition to set tables y position of tables
-			table.setyPositionFromBottom(pageHeight - pageTopMargin - table.getTopMargin() - pageUsedHeight);
-			createTable(table);
-			logger.info("Table content created successfully for :: table{}", i + 1);
-			logger.debug("table{} height in the current page = {}", i + 1, table.getHeight());
-			pageUsedHeight += table.getHeight() + table.getTopMargin();
-			if (pageUsedHeight >= pageHeight)
-				pageUsedHeight = 0;
-			logger.info("Page used height = {}", pageUsedHeight);
-		}
-		closeContentStream();
+	public void createPdfFile(Template template, String file) throws IOException, PdfTemplateException {
+		createPdf(template, getFileName(file));
 		logger.info("saving pdf file :: {}", file);
 		pdfDoc.save(file);
 	}
@@ -150,7 +130,14 @@ public class PdfGenerator implements AutoCloseable {
 	 *             if the input template is not set with proper value
 	 */
 	public byte[] createPdfByteArray(Template template, String fileName) throws IOException, PdfTemplateException {
-		createDocument();
+		createPdf(template, fileName);
+		logger.info("saving pdf byte array...");
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		pdfDoc.save(byteArrayOutputStream);
+		return byteArrayOutputStream.toByteArray();
+	}
+
+	private void createPdf(Template template, String fileName) throws IOException {
 		setPdfInformation(fileName);
 		logger.info("Document created");
 		createNewPage();
@@ -170,10 +157,6 @@ public class PdfGenerator implements AutoCloseable {
 			logger.info("Page used height = {}", pageUsedHeight);
 		}
 		closeContentStream();
-		logger.info("saving pdf byte array...");
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		pdfDoc.save(byteArrayOutputStream);
-		return byteArrayOutputStream.toByteArray();
 	}
 
 	private String getFileName(String file) {
@@ -324,7 +307,7 @@ public class PdfGenerator implements AutoCloseable {
 
 	// resetting the table y position in new page to top margin position, as in new
 	// page the table will start from top margin irrespective of it's start position
-	// in previous page. Also the height and top margin of table will be zero as the
+	// in previous page. Also, the height and top margin of table will be zero as the
 	// table is started from top in new page.
 	private void resetTableOnNewPageStart(Table table) {
 		table.setyPositionFromBottom(pageHeight - pageTopMargin);
@@ -340,8 +323,7 @@ public class PdfGenerator implements AutoCloseable {
 			PDFont pdfFont = getFontType(column, row.getIsHeader());
 			float colWidth = columnWidthMap.get(j);
 			// subtracting with one more cellXMargin for extra margin at end of cell.
-			// Otherwise
-			// the cell value is touching the column right border
+			// Otherwise, the cell value is touching the column right border
 			float colTextMaxWidth = colWidth - (2 * cellXMargin) - cellXMargin;
 			String text = column.getText() == null ? "" : column.getText();
 			text = text.replace("\r", "");
@@ -511,7 +493,7 @@ public class PdfGenerator implements AutoCloseable {
 	private void drawTableBorder(Table table, float xPositionFromLeft, float yPositionFromBottom, float tableWidth,
 			float tableHeight) throws IOException {
 		if (table.getDrawBoundary()) {
-			// table top horizontal border
+			// table-top horizontal border
 			drawLine(xPositionFromLeft, yPositionFromBottom, xPositionFromLeft + tableWidth, yPositionFromBottom,
 					table.getBoundaryColorComponents(), table.getBoundaryThickness());
 			// table bottom horizontal border
@@ -617,8 +599,7 @@ public class PdfGenerator implements AutoCloseable {
 
 	@Override
 	public void close() throws IOException {
-		if (pdfDoc != null)
-			pdfDoc.close();
+		pdfDoc.close();
 		logger.info("Document closed!!!");
 	}
 
