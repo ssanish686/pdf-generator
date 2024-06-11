@@ -11,9 +11,8 @@ import com.sughelp.pdf.generator.exception.PdfTemplateException;
  * in a pdf is represented by a table in the template. Each table contains
  * multiple rows. The rows will be processed in the order it is stored in the
  * list and in same order the corresponding rows will be displayed in pdf
- * sections. <br/>
- * <br/>
- * The structure is : {@link Template} => {@link Table} => {@link Row} =>
+ * sections. <br>
+ * <br>
  * {@link Column}
  * 
  * @author Anish
@@ -80,9 +79,9 @@ public class Table {
 	 * List containing the ratios of the width of column inside a table. Based on
 	 * this value the column are horizontally placed inside the table. The sum of
 	 * all the ratio should be equal to 1. If not set then all the column will be
-	 * equally divided and have same width.<br/>
+	 * equally divided and have same width.<br>
 	 * The size of the list set here should be same as the totalColumnCount value
-	 * set in the table.</br>
+	 * set in the table.<br>
 	 * <b>Example</b> : If a table contain two column and if you want column1 to be
 	 * 75% of the table width and column2 remaining width, then set the list with
 	 * values 0.75 and 0.25. Then column1 will be set with 75% of table width and
@@ -119,9 +118,9 @@ public class Table {
 	 * Width ratio of the table inside a page. Based on this value the width of
 	 * table is calculated in a page. The width of the table is exclusive of its
 	 * margin. i.e margin width will not be reduced or increased based on this
-	 * ratio.<br/>
+	 * ratio.<br>
 	 * If widthRatio is not set the default width of table will be the width of the
-	 * page minus its margin size.<br/>
+	 * page minus its margin size.<br>
 	 * <b>Example:</b> If you want the table width to occupy only half of the page
 	 * width then set widthRatio as 0.5
 	 * 
@@ -160,7 +159,7 @@ public class Table {
 	}
 
 	/**
-	 * Set the thickness of the boundary line. <br/>
+	 * Set the thickness of the boundary line. <br>
 	 * Default value : {@link PdfTemplateDefaultValues#LINE_WIDTH}
 	 *
 	 * @param boundaryThickness
@@ -176,7 +175,7 @@ public class Table {
 	}
 
 	/**
-	 * Table margin size from the left side of the page. <br/>
+	 * Table margin size from the left side of the page. <br>
 	 * Default value : {@link PdfTemplateDefaultValues#MARGIN}
 	 */
 	public void setLeftMargin(float leftMargin) {
@@ -190,7 +189,7 @@ public class Table {
 	}
 
 	/**
-	 * Table margin size from the right side of the page. <br/>
+	 * Table margin size from the right side of the page. <br>
 	 * Default value : {@link PdfTemplateDefaultValues#MARGIN}
 	 */
 	public void setRightMargin(float rightMargin) {
@@ -202,9 +201,9 @@ public class Table {
 	}
 
 	/**
-	 * Used to set the y coordinate (from bottom) of the table dynamically. <br/>
+	 * Used to set the y coordinate (from bottom) of the table dynamically. <br>
 	 * For first table in the page it will be the page height minus top margin.
-	 * <br/>
+	 * <br>
 	 * For other tables below the first table this value will be calculated
 	 * dynamically based on the height of first table created
 	 */
@@ -218,7 +217,7 @@ public class Table {
 
 	/**
 	 * Margin between this table and the table above it or top margin of the page
-	 * (if this is the first table in the page). <br/>
+	 * (if this is the first table in the page). <br>
 	 * Default value : 0
 	 */
 	public void setTopMargin(float topMargin) {

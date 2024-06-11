@@ -2,13 +2,37 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.sughelp.pdf.generator</groupId>
+	<groupId>io.github.ssanish686</groupId>
 	<artifactId>pdf-generator</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>sughelp-pdf-generator</name>
+	<description>Library for generating PDF</description>
 	<url>http://maven.apache.org</url>
+
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Anish Kumar SS</name>
+			<email>ssanish686@gmail.com</email>
+			<organization>ssanish686</organization>
+			<organizationUrl>https://github.com/ssanish686</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/ssanish686/pdf-generator.git</connection>
+		<developerConnection>scm:git:ssh://github.com:ssanish686/pdf-generator.git</developerConnection>
+		<url>https://github.com/ssanish686/pdf-generator/tree/master</url>
+	</scm>
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,29 +81,65 @@
 						<target>${java-version}</target>
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.2.1</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>3.2.4</version>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.sonatype.central</groupId>
+					<artifactId>central-publishing-maven-plugin</artifactId>
+					<version>0.4.0</version>
+					<extensions>true</extensions>
+					<configuration>
+						<publishingServerId>central</publishingServerId>
+						<tokenAuth>true</tokenAuth>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
-
-
-		<extensions>
-			<!-- Maven Wagon for AWS S3, used to publish artifacts to an S3 bucket -->
-			<extension>
-				<groupId>com.gkatzioura.maven.cloud</groupId>
-				<artifactId>s3-storage-wagon</artifactId>
-				<version>1.0</version>
-			</extension>
-		</extensions>
 	</build>
 
-	<!-- sughelp maven repository where the jar will be placed -->
 	<distributionManagement>
-		<snapshotRepository>
-			<id>sughelp-maven-repo</id>
-			<url>s3://sughelp-maven-repo/snapshot</url>
-		</snapshotRepository>
 		<repository>
-			<id>sughelp-maven-repo</id>
-			<url>s3://sughelp-maven-repo/release</url>
+			<id>internal.repo</id>
+			<name>Internal repo</name>
+			<url>file:///Users/ssani/ApplicationDirectory/Library</url>
 		</repository>
 	</distributionManagement>
 </project>

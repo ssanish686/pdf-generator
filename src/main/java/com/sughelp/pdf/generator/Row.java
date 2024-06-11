@@ -9,11 +9,10 @@ import com.sughelp.pdf.generator.exception.PdfTemplateException;
 /**
  * Row defines horizontal section inside a table {@link Table}. So for a table
  * which is the main section in a pdf, row corresponds to a horizontal part
- * whose width will be same as that of table width.<br/>
+ * whose width will be same as that of table width.<br>
  * One row contains multiple columns. The columns will be processed in the order
- * it is stored in the list and in same order it will be displayed in pdf. <br/>
- * <br/>
- * The structure is : {@link Template} => {@link Table} => {@link Row} =>
+ * it is stored in the list and in same order it will be displayed in pdf. <br>
+ *<br>
  * {@link Column}
  * 
  * @author Anish
@@ -92,7 +91,7 @@ public class Row {
 	}
 
 	/**
-	 * Set the thickness of the boundary line. <br/>
+	 * Set the thickness of the boundary line. <br>
 	 * Default value : {@link PdfTemplateDefaultValues#LINE_WIDTH}
 	 *
 	 * @param lineThickness

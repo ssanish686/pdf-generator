@@ -30,7 +30,7 @@ import com.sughelp.pdf.generator.exception.PdfTemplateException;
 
 /**
  * Creates pdf based on the input template. A template should contain all the
- * data and the specifications to create a pdf.<br/>
+ * data and the specifications to create a pdf.<br>
  * Please refer {@link Template} for more details on the values to be populated.
  * 
  * @author Anish

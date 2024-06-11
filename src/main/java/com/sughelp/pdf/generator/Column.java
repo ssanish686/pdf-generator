@@ -11,14 +11,12 @@ import com.sughelp.pdf.generator.exception.PdfTemplateException;
 /**
  * Column defines vertical section inside a row {@link Row}. So for a row which
  * is the horizontal section in a table, column corresponds to a vertical part
- * of it. So column can be defined as the base unit of a template.<br/>
+ * of it. So column can be defined as the base unit of a template.<br>
  * The column contains the actual content to be displayed in pdf. The content
  * can be a text or image.
  * 
- * <br/>
- * <br/>
- * The structure is : {@link Template} => {@link Table} => {@link Row} =>
- * {@link Column}
+ * <br>
+ * <br>
  * 
  * 
  * @author Anish
@@ -99,7 +97,7 @@ public class Column {
 	}
 
 	/**
-	 * Set the font size of the text.<br/>
+	 * Set the font size of the text.<br>
 	 * Default value : {@link PdfTemplateDefaultValues#TEXT_FONT_SIZE}
 	 */
 	public void setFontSize(float fontSize) {
@@ -132,7 +130,7 @@ public class Column {
 	}
 
 	/**
-	 * Set the thickness of the border line. <br/>
+	 * Set the thickness of the border line. <br>
 	 * Default value : {@link PdfTemplateDefaultValues#LINE_WIDTH}
 	 *
 	 * @param lineThickness
@@ -194,11 +192,11 @@ public class Column {
 	}
 
 	/**
-	 * Set the content type for the value in this column<br/>
+	 * Set the content type for the value in this column<br>
 	 * Default content type : {@link PdfConstants#CONTENT_TYPE_TEXT}
 	 * 
 	 * @param contentType
-	 *            The content type as specified in {@link PdfConstants} <br/>
+	 *            The content type as specified in {@link PdfConstants} <br>
 	 */
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
@@ -255,7 +253,7 @@ public class Column {
 	/**
 	 * Set the width of the image for this column if the content type is
 	 * <b>"image"</b>. If the content type is not image then this values has no
-	 * relevance <br/>
+	 * relevance <br>
 	 * Default value : {@link PdfTemplateDefaultValues#IMAGE_WIDTH}
 	 * 
 	 * @param width
@@ -268,7 +266,7 @@ public class Column {
 	/**
 	 * Set the height of the image for this column if the content type is
 	 * <b>"image"</b>. If the content type is not image then this values has no
-	 * relevance.<br/>
+	 * relevance.<br>
 	 * Default value : {@link PdfTemplateDefaultValues#IMAGE_HEIGHT}
 	 * 
 	 * @param height
@@ -309,14 +307,14 @@ public class Column {
 	 * Set the vertical gravity of the content inside this column. Based on this
 	 * value the content will vertically align to top, center, or bottom of the
 	 * column. If nothing is set the default gravity will be
-	 * {@link PdfConstants#COLUMN_GRAVITY_TOP}. <br/>
+	 * {@link PdfConstants#COLUMN_GRAVITY_TOP}. <br>
 	 * The vertical gravity will be applied based on the row height. If all the
 	 * columns in a row have same height then the vertical gravity will not have any
 	 * impact. Only if any column height is greater than other, then all other
 	 * column contents will be aligned to top, center or bottom based on the value
 	 * set here.
 	 * 
-	 * @param gravity
+	 * @param verticalGravity
 	 *            The possible values are
 	 *            {@link PdfConstants#COLUMN_GRAVITY_TOP},{@link PdfConstants#COLUMN_GRAVITY_CENTER},
 	 *            {@link PdfConstants#COLUMN_GRAVITY_BOTTOM}

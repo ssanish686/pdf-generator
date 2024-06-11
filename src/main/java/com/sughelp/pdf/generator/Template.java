@@ -6,14 +6,13 @@ import com.sughelp.pdf.generator.constants.PdfTemplateDefaultValues;
 
 /**
  * The template for which the pdf will be generated. It contains list of tables
- * ({@link Table}), top and bottom margin of a page. <br/>
+ * ({@link Table}), top and bottom margin of a page. <br>
  * Any section the user has to write in the PDF should be configured as a table
  * ({@link Table}). This table will be converted to corresponding sections in
  * pdf. The table will be processed in the order it is stored in the list and in
- * same order the corresponding sections will be displayed in pdf. <br/>
- * <br/>
- * The structure is : {@link Template} => {@link Table} => {@link Row} =>
- * {@link Column}
+ * same order the corresponding sections will be displayed in pdf. <br>
+ * <br>
+
  * 
  * 
  * @author Anish
@@ -47,7 +46,7 @@ public class Template {
 	/**
 	 * Top margin of first table in a page. Basically it is the y coordinate of the
 	 * first table row in a page from top. Other tables position will be relative to
-	 * this first table.<br/>
+	 * this first table.<br>
 	 * Default value : {@link PdfTemplateDefaultValues#MARGIN}
 	 * 
 	 * @param topMargin
@@ -65,7 +64,7 @@ public class Template {
 
 	/**
 	 * Bottom margin of last table in a page. Basically it is the y coordinate of
-	 * the last table row in a page from bottom.<br/>
+	 * the last table row in a page from bottom.<br>
 	 * Default value : {@link PdfTemplateDefaultValues#MARGIN}
 	 * 
 	 * @param bottomMargin
